@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import math
 
 
-n_iter = 2000
+n_iter = 5000
 
 
 def genSample(sample):
@@ -65,15 +65,32 @@ def fitCurveAbs(train, weights):
 			y = np.array(zip(*train)[1])
 			y = y.reshape(h.shape)
 			a = (h - y).reshape(-1)
+			a = a/abs(a)
 			for k in range(len(weight)):
-				# h = np.matmul(np.transpose(weight),x)
-				# y = np.array(zip(*train)[1])
-				# y = y.reshape(h.shape)
-				if(a[k]<0):
-					
-				err = (h - y).reshape((1,-1)) * np.array(zip(*np.transpose(x))[k])
+				err = a * np.array(zip(*np.transpose(x))[k]).reshape(-1)
 				err = np.sum(err)
-				weight[k] -= (err * learning_rate)/len(x);
+				weight[k] -= (err * learning_rate)/(2*len(x));
+		weights[i] = weight
+
+
+
+def fitCurve4thPower(train, weights):
+	for i in range(len(deg)):
+		weight = np.reshape(np.array(weights[i]),(deg[i]+1,1))
+		x = [[math.pow(train[k][0],j) for j in range(deg[i]+1)] for k in range(len(train))]
+		for j in range(len(x)):
+			x[j] = np.reshape(np.array(x[j]),(deg[i]+1,1))
+
+		x = np.array(x)
+		weight = np.array(weight)
+		for n in range(n_iter):
+			h = np.matmul(np.transpose(weight),x)
+			y = np.array(zip(*train)[1])
+			y = y.reshape(h.shape)
+			for k in range(len(weight)):
+				err = (h-y).reshape((1,-1))*(h-y).reshape((1,-1))*(h-y).reshape((1,-1))*np.array(zip(*np.transpose(x))[k])
+				err = np.sum(err)
+				weight[k] -= 2*(err * learning_rate)/len(x);
 		weights[i] = weight
 
 
@@ -147,19 +164,19 @@ while(1):
 		x = [sample[0][i][0] for i in range(len(sample[0]))]
 		y = [sample[0][i][1] for i in range(len(sample[0]))]
 
-		for i in deg:
+		for i in range(len(deg)):
 			plt.figure()
 			plt.scatter(x,y)
 			x1 = np.linspace(0, 1, 100)
 			y1 = []
 			for k in x1:
 				a = 0
-				for j in range(i+1):
-					a += weights[0][i-1][j]*math.pow(k,j)
+				for j in range(deg[i]+1):
+					a += weights[0][i][j]*math.pow(k,j)
 				y1.append(a)
 			plt.xlabel("X")
 			plt.ylabel("Y")
-			plt.title("REGRESSION LINE (DEGREE = "+str(i)+")")
+			plt.title("REGRESSION LINE (DEGREE = "+str(deg[i])+")")
 			plt.plot(x1, y1, "k")
 
 		plt.figure()
@@ -209,9 +226,9 @@ while(1):
 		print("Over..")
 
 	if(c==4):
-		n_sample = [1000]
-		learning_rate = [0.025, 0.05, 0.1, 0.2, 0.5]
-		deg = [mindeg]
+		n_sample = [100]
+		learning_rate = 0.05#[0.025, 0.05, 0.1, 0.2, 0.5]
+		deg = [i for i in range(1,10)]
 		sample = []
 		train = []
 		test = []
@@ -226,6 +243,24 @@ while(1):
 		print("\nDataset split into 80% training data and 20% test data")
 		for i in range(len(n_sample)):
 			print("\nFitting a curve of " + str(n_sample[i]) + " samples using linear regression...")
-			fitCurveSquared(train[i], weights[i])
+			fitCurveAbs(train[i], weights[i])
 
+		print("\nPlots the graph of the dataset along with the curve fit")
+		x = [sample[0][i][0] for i in range(len(sample[0]))]
+		y = [sample[0][i][1] for i in range(len(sample[0]))]
 
+		for i in range(len(deg)):
+			plt.figure()
+			plt.scatter(x,y)
+			x1 = np.linspace(0, 1, 100)
+			y1 = []
+			for k in x1:
+				a = 0
+				for j in range(deg[i]+1):
+					a += weights[0][i][j]*math.pow(k,j)
+				y1.append(a)
+			plt.xlabel("X")
+			plt.ylabel("Y")
+			plt.title("REGRESSION LINE (DEGREE = "+str(deg[i])+")")
+			plt.plot(x1, y1, "k")
+		plt.show()
