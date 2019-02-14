@@ -32,19 +32,16 @@ def fitCurveSquared(train, weights):
 	for i in range(len(deg)):
 		weight = np.reshape(np.array(weights[i]),(deg[i]+1,1))
 		x = [[math.pow(train[k][0],j) for j in range(deg[i]+1)] for k in range(len(train))]
-		for j in range(len(x)):
-			x[j] = np.reshape(np.array(x[j]),(deg[i]+1,1))
 
 		x = np.array(x)
+		x = np.transpose(x)
 		weight = np.array(weight)
 		for n in range(n_iter):
-			h = np.matmul(np.transpose(weight),x)
+			h = np.transpose(weight).dot(x)
 			y = np.array(zip(*train)[1])
 			y = y.reshape(h.shape)
-			for k in range(len(weight)):
-				err = (h - y).reshape((1,-1)) * np.array(zip(*np.transpose(x))[k])
-				err = np.sum(err)
-				weight[k] -= (err * learning_rate)/len(x);
+			err = np.transpose((h-y).dot(np.transpose(x)))
+			weight -= (err * learning_rate)/len(train)
 		weights[i] = weight
 
 
