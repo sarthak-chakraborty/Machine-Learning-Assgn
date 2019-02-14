@@ -145,22 +145,20 @@ for i in range(len(learning_rate)):
 	fitCurve4thPower(train, weights_power4[i], learning_rate[i])
 	estimateError(test, weights_power4[i], err_test_power4[i])
 
-	# print("\nPlots the graph of the dataset along with the curve fit")
-
-	# for m in range(len(deg)):
-	# 	plt.figure()
-	# 	plt.scatter(x,y)
-	# 	x1 = np.linspace(0, 1, 100)
-	# 	y1 = []
-	# 	for k in x1:
-	# 		a = 0
-	# 		for j in range(deg[m]+1):
-	# 			a += weights_abs[i][m][j]*math.pow(k,j)
-	# 		y1.append(a)
-	# 	plt.xlabel("X")
-	# 	plt.ylabel("Y")
-	# 	plt.title("REGRESSION LINE (DEGREE = "+str(deg[m])+")")
-	# 	plt.plot(x1, y1, "k")
+	for m in range(len(deg)):
+		plt.figure()
+		plt.scatter(x,y)
+		x1 = np.linspace(0, 1, 100)
+		y1 = []
+		for k in x1:
+			a = 0
+			for j in range(deg[m]+1):
+				a += weights_abs[i][m][j]*math.pow(k,j)
+			y1.append(a)
+		plt.xlabel("X")
+		plt.ylabel("Y")
+		plt.title("REGRESSION LINE (DEGREE = "+str(deg[m])+")")
+		plt.plot(x1, y1, "k")
 
 plt.figure()
 plt.plot(learning_rate, err_test_square, "b")
@@ -170,5 +168,5 @@ plt.xlabel("Learning Rate (alpha)")
 plt.ylabel("Error")
 plt.title("RMSE vs LEARNING RATE")
 plt.legend(["Squared Cost Funtion","Absolute Cost Function","Power 4 Cost Function"])
-plt.savefig("Variation with Learning Rate")
-# plt.show()
+# plt.savefig("Variation with Learning Rate")
+plt.show()
