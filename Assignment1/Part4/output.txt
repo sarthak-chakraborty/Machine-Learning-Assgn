@@ -1,0 +1,799 @@
+Generating 100 samples...
+Dataset Generated
+
+Dataset split into 80% training data and 20% test data
+
+Fitting a curve of 100 samples (learning rate = 0.025) using linear regression...
+
+Degree of Polynomial n: 1
+Squared Cost Weights Learned: 
+[[ 0.7283493  -1.39057926]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.550093617094
+
+Absolute Cost Weights Learned: 
+[[ 0.56234785 -1.00056632]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.609388744081
+
+4th Power Cost Weights Learned: 
+[[ 0.8772942 -1.7073916]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.51768464555
+
+Degree of Polynomial n: 2
+Squared Cost Weights Learned: 
+[[ 0.77196063 -0.90554818 -0.79232895]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.524782747848
+
+Absolute Cost Weights Learned: 
+[[ 0.67338258 -0.62488786 -0.83060068]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.549058498884
+
+4th Power Cost Weights Learned: 
+[[ 0.75987038 -0.93390504 -0.78927427]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.524314169154
+
+Degree of Polynomial n: 3
+Squared Cost Weights Learned: 
+[[ 0.6362492  -0.42443897 -0.74414932 -0.47677884]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.551527084913
+
+Absolute Cost Weights Learned: 
+[[ 0.64860032 -0.50919997 -0.27700153 -0.80965482]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.565348925827
+
+4th Power Cost Weights Learned: 
+[[ 0.71182851 -0.86201745 -0.6426251  -0.16708308]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.533985396353
+
+Degree of Polynomial n: 4
+Squared Cost Weights Learned: 
+[[ 0.74905541 -0.89301359 -0.72069821 -0.33877592  0.36708131]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.522799531763
+
+Absolute Cost Weights Learned: 
+[[ 0.68890682 -0.54017261 -0.68031823 -0.58074294  0.2442628 ]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.545086578352
+
+4th Power Cost Weights Learned: 
+[[ 0.71899994 -0.90627299 -0.6900201  -0.21058411  0.19046772]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.528151045847
+
+Degree of Polynomial n: 5
+Squared Cost Weights Learned: 
+[[ 0.71829148 -0.93784685 -0.51677601 -0.27184424  0.35621651 -0.19258883]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.537639036663
+
+Absolute Cost Weights Learned: 
+[[ 0.71048776 -0.61469594 -0.70307183 -0.47106325 -0.32335997  0.63637298]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.530329066741
+
+4th Power Cost Weights Learned: 
+[[ 0.74134126 -0.94419304 -0.76147984 -0.30032056  0.09077454  0.36836832]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.514046575368
+
+Degree of Polynomial n: 6
+Squared Cost Weights Learned: 
+[[ 0.80985384 -1.12033539 -0.73080929 -0.09097572 -0.31396452  0.0064841
+   0.85094479]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.493579710364
+
+Absolute Cost Weights Learned: 
+[[ 0.74480105 -0.92968924 -0.43241805 -0.29436192 -0.42237922  0.21671177
+   0.40187521]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.52352543846
+
+4th Power Cost Weights Learned: 
+[[ 0.76218524 -0.96039285 -0.81629177 -0.38118099 -0.00648297  0.26127546
+   0.43955906]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.498532349305
+
+Degree of Polynomial n: 7
+Squared Cost Weights Learned: 
+[[ 0.82057555 -1.10683891 -0.55271494 -0.72124137 -0.25168048  0.10104741
+   0.69874349  0.57174341]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.474256879742
+
+Absolute Cost Weights Learned: 
+[[ 0.65203519 -0.43851002 -0.87115167 -0.52628619  0.03449605 -0.22932267
+   0.17794232  0.54901329]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.524306030421
+
+4th Power Cost Weights Learned: 
+[[ 0.7776491  -0.96143105 -0.85142243 -0.44210098 -0.08471764  0.17200512
+   0.34359711  0.45331861]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.484762565826
+
+Degree of Polynomial n: 8
+Squared Cost Weights Learned: 
+[[ 0.78279745 -1.11365079 -0.52958859 -0.14012904 -0.35977654 -0.17997558
+  -0.12780574  0.62021221  0.59757537]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.491152539235
+
+Absolute Cost Weights Learned: 
+[[ 0.75400404 -0.91913653 -0.62627086 -0.37552054 -0.21538584  0.0303724
+   0.36473006  0.36259554  0.04578797]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.503701794562
+
+4th Power Cost Weights Learned: 
+[[ 0.78811753 -0.95466527 -0.87198051 -0.48508685 -0.14340918  0.10292384
+   0.26791869  0.37367097  0.43848755]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.47363938867
+
+Degree of Polynomial n: 9
+Squared Cost Weights Learned: 
+[[ 0.79123802 -0.76654063 -1.35034693 -0.41526545  0.03116696  0.00706186
+   0.5556301   0.31661743  0.39471138  0.12096475]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.46099880891
+
+Absolute Cost Weights Learned: 
+[[ 0.67869562 -0.45176014 -1.136495   -0.25072304 -0.29232839  0.05037093
+   0.13661895 -0.19861658  0.41778892  0.72321603]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.498748907519
+
+4th Power Cost Weights Learned: 
+[[ 0.79485532 -0.94480311 -0.88311252 -0.51461807 -0.18624192  0.05104984
+   0.21012007  0.31214459  0.37476587  0.41077463]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.465111015195
+
+
+Fitting a curve of 100 samples (learning rate = 0.05) using linear regression...
+
+Degree of Polynomial n: 1
+Squared Cost Weights Learned: 
+[[ 0.92305258 -1.74199582]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.513292831372
+
+Absolute Cost Weights Learned: 
+[[ 0.86609762 -1.62112186]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.523627876083
+
+4th Power Cost Weights Learned: 
+[[ 0.93906505 -1.81795347]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.50931399652
+
+Degree of Polynomial n: 2
+Squared Cost Weights Learned: 
+[[ 0.86255531 -1.3078786  -0.45483776]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.515608822621
+
+Absolute Cost Weights Learned: 
+[[ 0.72480276 -0.55014708 -1.13790909]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.53070187621
+
+4th Power Cost Weights Learned: 
+[[ 0.79918748 -1.11223751 -0.63568792]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.520310915131
+
+Degree of Polynomial n: 3
+Squared Cost Weights Learned: 
+[[ 0.70915637 -0.6971345  -0.68551466 -0.2974953 ]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.538264869986
+
+Absolute Cost Weights Learned: 
+[[ 0.74461104 -0.75233609 -1.14479944  0.24836452]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.523032681928
+
+4th Power Cost Weights Learned: 
+[[ 0.80957483 -1.19789953 -0.6848987   0.18011267]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.517297751589
+
+Degree of Polynomial n: 4
+Squared Cost Weights Learned: 
+[[ 0.78052868 -1.04706917 -0.55129775 -0.39877416  0.39025282]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.519825316661
+
+Absolute Cost Weights Learned: 
+[[ 0.76870739 -0.92785765 -0.95076644  0.08827701  0.26144051]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.520528481574
+
+4th Power Cost Weights Learned: 
+[[ 0.85469168 -1.28203619 -0.87313402 -0.06800989  0.59651924]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.498599895864
+
+Degree of Polynomial n: 5
+Squared Cost Weights Learned: 
+[[ 0.91761952 -1.40870921 -0.91696739 -0.22433755  0.56216182  0.48640326]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.481375343304
+
+Absolute Cost Weights Learned: 
+[[ 0.74722494 -0.81678932 -0.69552715 -0.71044911  0.13167941  0.60580323]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.510339602693
+
+4th Power Cost Weights Learned: 
+[[ 0.88680233 -1.29071569 -1.00470994 -0.28745096  0.32079307  0.74876374]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.477623627634
+
+Degree of Polynomial n: 6
+Squared Cost Weights Learned: 
+[[ 0.88816963 -1.14944299 -0.99371412 -0.5365622  -0.32704466  0.62726934
+   1.08442125]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.457097124251
+
+Absolute Cost Weights Learned: 
+[[ 0.74479473 -0.76419488 -0.96858129 -0.35901091 -0.06036209  0.16039161
+   0.65080962]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.500710108773
+
+4th Power Cost Weights Learned: 
+[[ 0.90284502 -1.26000378 -1.07364644 -0.43659722  0.11694061  0.50980845
+   0.76668409]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.460262681214
+
+Degree of Polynomial n: 7
+Squared Cost Weights Learned: 
+[[ 0.84945904 -0.76520625 -1.5622243  -0.74103685  0.21006793  0.35965185
+   0.31261473  1.05984947]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.440137059181
+
+Absolute Cost Weights Learned: 
+[[ 0.85688985 -0.81147623 -1.38538117 -0.81484053  0.28663385 -0.1916064
+   0.88698327  1.03536236]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.44646589853
+
+4th Power Cost Weights Learned: 
+[[ 0.90894708 -1.21863665 -1.10402948 -0.53012593 -0.02152639  0.34148463
+   0.57938897  0.72632367]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.447673030387
+
+Degree of Polynomial n: 8
+Squared Cost Weights Learned: 
+[[ 0.92269159 -1.12095713 -1.21727829 -0.48638711 -0.25422916  0.07800492
+   0.48257423  0.95193602  0.48340185]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.433563111792
+
+Absolute Cost Weights Learned: 
+[[ 0.97011499 -1.17316627 -1.44567992 -0.38149024  0.08397973  0.53888697
+  -0.0087199   0.54797949  0.78815111]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.436434676292
+
+4th Power Cost Weights Learned: 
+[[ 0.91006263 -1.17945104 -1.11445827 -0.58759655 -0.11358592  0.22585907
+   0.44838139  0.58571765  0.66467232]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.43946398918
+
+Degree of Polynomial n: 9
+Squared Cost Weights Learned: 
+[[ 0.94526971 -1.0516298  -1.18697488 -1.12851179 -0.05691022  0.17200027
+   0.61837322  0.43293636  0.93167559  0.33363766]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.415739085906
+
+Absolute Cost Weights Learned: 
+[[ 0.83860151 -0.81062871 -0.87389647 -1.3770423  -0.07224858  0.16117852
+   0.55555847  0.05630798  0.31919036  1.14561906]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.431903417722
+
+4th Power Cost Weights Learned: 
+[[ 0.90912884 -1.14637134 -1.11559618 -0.62334444 -0.17548435  0.14577141
+   0.35616537  0.48572693  0.55997714  0.59747961]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.434688082037
+
+
+Fitting a curve of 100 samples (learning rate = 0.1) using linear regression...
+
+Degree of Polynomial n: 1
+Squared Cost Weights Learned: 
+[[ 0.9579608  -1.80500105]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.508688565319
+
+Absolute Cost Weights Learned: 
+[[ 1.0089238  -1.84445963]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.506072516207
+
+4th Power Cost Weights Learned: 
+[[ 0.94233797 -1.82377137]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.508926830892
+
+Degree of Polynomial n: 2
+Squared Cost Weights Learned: 
+[[ 0.870121   -1.34203057 -0.42589355]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.514919533709
+
+Absolute Cost Weights Learned: 
+[[ 0.78787589 -0.81730599 -0.91688856]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.523558701744
+
+4th Power Cost Weights Learned: 
+[[ 0.85670666 -1.4086526  -0.36425128]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.515380489776
+
+Degree of Polynomial n: 3
+Squared Cost Weights Learned: 
+[[ 0.80691751 -0.96866925 -1.12460465  0.42757746]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.513795573811
+
+Absolute Cost Weights Learned: 
+[[ 0.82314476 -1.03001767 -1.08180937  0.43157606]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.512010058681
+
+4th Power Cost Weights Learned: 
+[[ 0.92654843 -1.62079207 -0.77590837  0.67645961]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.500492966311
+
+Degree of Polynomial n: 4
+Squared Cost Weights Learned: 
+[[ 0.90911212 -1.31032438 -1.13204588 -0.09028998  0.9698958 ]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.485103785912
+
+Absolute Cost Weights Learned: 
+[[ 0.94167246 -1.2353526  -1.31632386  0.12553701  0.76130524]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.481860050578
+
+4th Power Cost Weights Learned: 
+[[ 0.97151816 -1.60986939 -1.13278117  0.06649209  1.08689217]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.476905931098
+
+Degree of Polynomial n: 5
+Squared Cost Weights Learned: 
+[[ 0.96529085 -1.19362899 -1.52345114 -0.89028117  0.79609885  1.47217338]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.443528878045
+
+Absolute Cost Weights Learned: 
+[[ 0.93855274 -1.13704621 -1.38851014 -0.45759581  0.51668091  1.00451786]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.459720449285
+
+4th Power Cost Weights Learned: 
+[[ 0.98100382 -1.49372325 -1.2986452  -0.32496726  0.54364177  1.16064149]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.456507202691
+
+Degree of Polynomial n: 6
+Squared Cost Weights Learned: 
+[[ 1.01001427 -1.33271837 -1.40596811 -0.55909637 -0.32596666  1.15934285
+   1.24109751]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.430063244468
+
+Absolute Cost Weights Learned: 
+[[ 0.97888397 -1.12924997 -1.63571701 -0.92235448  0.54674486  0.7467389
+   1.28212199]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.432558784453
+
+4th Power Cost Weights Learned: 
+[[ 0.97573518 -1.37356823 -1.35685602 -0.544819    0.20865062  0.74974536
+   1.10015099]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.44209844606
+
+Degree of Polynomial n: 7
+Squared Cost Weights Learned: 
+[[ 0.97018771 -0.96618178 -1.80042453 -0.64857619 -0.37936827  0.70720577
+   0.88181161  1.1736328 ]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.412779416403
+
+Absolute Cost Weights Learned: 
+[[ 1.0262945  -1.31166582 -1.15592771 -1.25815862 -0.04332817  0.71477639
+   0.76376876  1.2012243 ]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.414994713164
+
+4th Power Cost Weights Learned: 
+[[ 0.96691391 -1.27690048 -1.36846184 -0.66624169  0.00539379  0.49083891
+   0.80531212  0.99337013]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.433501598473
+
+Degree of Polynomial n: 8
+Squared Cost Weights Learned: 
+[[ 1.00870573 -1.21367665 -1.14358394 -1.25641488 -0.40777762  0.68826929
+   0.87804941  0.58911493  0.90283024]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.409249420426
+
+Absolute Cost Weights Learned: 
+[[ 0.93134573 -0.91352258 -1.3892305  -1.05738148 -0.47318889  0.24953627
+   0.23514625  1.46185361  1.01632756]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.406417363426
+
+4th Power Cost Weights Learned: 
+[[ 0.95816657 -1.20189016 -1.36061093 -0.73448978 -0.12206776  0.32179906
+   0.60852343  0.77887526  0.86963192]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.428601385574
+
+Degree of Polynomial n: 9
+Squared Cost Weights Learned: 
+[[ 0.93196286 -0.75564704 -1.47964935 -1.25956016 -0.43766338  0.43565759
+   0.11062943  0.49787837  1.21483969  0.95059446]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.397949273395
+
+Absolute Cost Weights Learned: 
+[[ 0.92709128 -0.77266899 -1.58298433 -1.27295598 -0.25908005 -0.20542928
+   0.71254825  0.80488848  0.94377431  0.88248159]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.396639409735
+
+4th Power Cost Weights Learned: 
+[[ 0.94953514 -1.14189957 -1.34251784 -0.77083673 -0.20308719  0.20801802
+   0.47181535  0.62662392  0.70721388  0.73933004]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.425294037245
+
+
+Fitting a curve of 100 samples (learning rate = 0.2) using linear regression...
+
+Degree of Polynomial n: 1
+Squared Cost Weights Learned: 
+[[ 0.95903494 -1.80693975]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.5085571837
+
+Absolute Cost Weights Learned: 
+[[ 1.00972873 -1.84619391]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.505963625027
+
+4th Power Cost Weights Learned: 
+[[ 0.9423455  -1.82378475]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.508925946907
+
+Degree of Polynomial n: 2
+Squared Cost Weights Learned: 
+[[ 0.89209319 -1.46377414 -0.31082382]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.513279536086
+
+Absolute Cost Weights Learned: 
+[[ 0.82979484 -0.98844821 -0.77762679]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.519219006637
+
+4th Power Cost Weights Learned: 
+[[ 0.93474601 -1.82950458  0.02818464]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.510230429448
+
+Degree of Polynomial n: 3
+Squared Cost Weights Learned: 
+[[ 0.96790381 -1.52859359 -1.42907749  1.29133568]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.489272862204
+
+Absolute Cost Weights Learned: 
+[[ 0.999628   -1.54324252 -1.09744424  0.90362937]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.492888366744
+
+4th Power Cost Weights Learned: 
+[[ 1.01450865 -1.9258607  -1.00301003  1.22377885]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.490068187234
+
+Degree of Polynomial n: 4
+Squared Cost Weights Learned: 
+[[ 1.06062898 -1.80817863 -1.15963188 -0.17749917  1.59487366]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.465665040225
+
+Absolute Cost Weights Learned: 
+[[ 1.02003313 -1.43183881 -1.61283638 -0.06873618  1.55248033]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.461070868907
+
+4th Power Cost Weights Learned: 
+[[ 1.01736886 -1.64755109 -1.5311257   0.0853064   1.58066385]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.46533978347
+
+Degree of Polynomial n: 5
+Squared Cost Weights Learned: 
+[[ 1.01781349 -1.07638332 -2.49095526 -0.29501767  1.06273561  1.5172627 ]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.429676589353
+
+Absolute Cost Weights Learned: 
+[[ 1.0182003  -1.11266044 -2.02259975 -0.94052999  0.47220901  2.43811905]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.426615263162
+
+4th Power Cost Weights Learned: 
+[[ 0.99522711 -1.372456   -1.70098165 -0.49714988  0.70446632  1.581997  ]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.444845472239
+
+Degree of Polynomial n: 6
+Squared Cost Weights Learned: 
+[[ 0.98558667 -0.82704874 -2.3317052  -0.76179229  0.01929397  1.11618759
+   1.71830608]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.408407497868
+
+Absolute Cost Weights Learned: 
+[[ 1.00310741 -0.97149391 -1.72243714 -1.24396444 -0.25377255  0.79687649
+   2.33338451]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.405209140849
+
+4th Power Cost Weights Learned: 
+[[ 0.97213695 -1.17429211 -1.72885505 -0.7814437   0.22405483  0.96752875
+   1.44813235]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.431653059751
+
+Degree of Polynomial n: 7
+Squared Cost Weights Learned: 
+[[ 0.94637236 -0.64513842 -1.86031996 -1.83581286 -0.0062986   0.92694846
+   1.38156477  1.15240209]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.394478519565
+
+Absolute Cost Weights Learned: 
+[[ 0.93196881 -0.66159033 -1.93564964 -1.3156284  -0.37349278  0.34392589
+   1.26810207  1.80052892]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.394647151329
+
+4th Power Cost Weights Learned: 
+[[ 0.95210737 -1.03474592 -1.70391829 -0.91979534 -0.04823453  0.59931386
+   1.01539531  1.25540827]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.423990081353
+
+Degree of Polynomial n: 8
+Squared Cost Weights Learned: 
+[[ 0.94072152 -0.61442397 -2.08730724 -0.74164502 -0.76298444  0.14016966
+   1.26028334  0.80942818  1.21495499]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.393507325691
+
+Absolute Cost Weights Learned: 
+[[ 1.0171995  -1.00955201 -1.52653475 -1.35822022 -0.60629119  0.67833038
+   0.76071889  0.96493843  1.20469907]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.393095598454
+
+4th Power Cost Weights Learned: 
+[[ 0.93466937 -0.93652181 -1.65669236 -0.97798572 -0.20135091  0.37350163
+   0.73720457  0.94076221  1.03506802]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.419107680362
+
+Degree of Polynomial n: 9
+Squared Cost Weights Learned: 
+[[ 0.90473995 -0.59538618 -1.33118579 -1.6030263  -0.85786248  0.35645151
+   0.25016117  1.1193198   0.72744579  1.3281862 ]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.390690548974
+
+Absolute Cost Weights Learned: 
+[[ 0.90841962 -0.52437071 -1.71404256 -1.50407496 -0.74908647  0.57949523
+   0.27354268  1.06999374  0.97973626  0.88569459]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.386435184979
+
+4th Power Cost Weights Learned: 
+[[ 0.92089566 -0.87449945 -1.60545359 -0.99012991 -0.27834721  0.24264076
+   0.56450454  0.73647551  0.80733008  0.81393632]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.416392207437
+
+
+Fitting a curve of 100 samples (learning rate = 0.5) using linear regression...
+
+Degree of Polynomial n: 1
+Squared Cost Weights Learned: 
+[[ 0.95903574 -1.80694121]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.50855708545
+
+Absolute Cost Weights Learned: 
+[[ 1.01154101 -1.84772133]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.505898110657
+
+4th Power Cost Weights Learned: 
+[[ 0.9423455  -1.82378475]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.508925946903
+
+Degree of Polynomial n: 2
+Squared Cost Weights Learned: 
+[[ 0.95612294 -1.81857456  0.02453721]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.509278662665
+
+Absolute Cost Weights Learned: 
+[[ 0.9812825  -1.62635572 -0.22830737]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.50739033622
+
+4th Power Cost Weights Learned: 
+[[ 1.02432167 -2.34127345  0.51676884]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.506993190436
+
+Degree of Polynomial n: 3
+Squared Cost Weights Learned: 
+[[ 1.04551778 -1.6644637  -2.07554567  2.10290285]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.476410228408
+
+Absolute Cost Weights Learned: 
+[[ 1.00637808 -1.29938133 -2.46615177  2.09168817]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.472166126895
+
+4th Power Cost Weights Learned: 
+[[ 1.03017426 -1.78770028 -1.80296699  1.94367125]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.480871475
+
+Degree of Polynomial n: 4
+Squared Cost Weights Learned: 
+[[ 1.00112553 -0.95448448 -2.76174615 -0.70283804  3.07383652]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.434379751752
+
+Absolute Cost Weights Learned: 
+[[ 1.07415548 -1.00526795 -3.1573427  -0.40181553  3.29804423]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.433627283867
+
+4th Power Cost Weights Learned: 
+[[ 0.97737218 -1.12727458 -2.53209375 -0.14028964  2.43232811]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.448021606834
+
+Degree of Polynomial n: 5
+Squared Cost Weights Learned: 
+[[ 0.92275798 -0.31018014 -3.1003545  -1.28439804  0.6029633   3.03930766]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.401229977814
+
+Absolute Cost Weights Learned: 
+[[ 0.98629193 -0.54016687 -2.82761583 -1.66490918  0.65117653  3.27828988]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.396160704703
+
+4th Power Cost Weights Learned: 
+[[ 0.92726272 -0.6980225  -2.63723958 -1.0253982   0.91902539  2.39261616]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.423943828833
+
+Degree of Polynomial n: 6
+Squared Cost Weights Learned: 
+[[ 0.84679766  0.17117897 -3.20477748 -1.54300465 -0.09255858  1.05448118
+   2.82764296]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.379989338045
+
+Absolute Cost Weights Learned: 
+[[ 0.81153455  0.27506423 -3.05891833 -1.90337189 -0.58687776  1.64139264
+   2.86273908]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.375315081825
+
+4th Power Cost Weights Learned: 
+[[ 0.88831797 -0.44004064 -2.5515399  -1.38347328  0.16477592  1.34647597
+   2.09820496]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.410688976728
+
+Degree of Polynomial n: 7
+Squared Cost Weights Learned: 
+[[ 0.8032627   0.30360469 -2.70728908 -2.00197196 -0.5930025   0.70911817
+   1.43396933  2.26426656]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.372329628827
+
+Absolute Cost Weights Learned: 
+[[ 0.76560019  0.4757578  -2.49769559 -2.78164876 -0.6296921   0.88610068
+   1.43194482  2.54414179]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.364318129197
+
+4th Power Cost Weights Learned: 
+[[ 0.85982786 -0.29880178 -2.40852089 -1.48932232 -0.19929323  0.77360604
+   1.36994233  1.67421929]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.403435586753
+
+Degree of Polynomial n: 8
+Squared Cost Weights Learned: 
+[[ 0.78404523  0.39128929 -2.76042617 -1.80514699 -0.51204922  0.32561444
+   0.91499387  1.44843308  1.50961102]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.372243209769
+
+Absolute Cost Weights Learned: 
+[[ 0.72530407  0.77702473 -2.82568529 -2.06036844 -0.94631113  0.00490567
+   1.16333809  1.48237549  2.04336863]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.364014428553
+
+4th Power Cost Weights Learned: 
+[[ 0.8435997  -0.24789751 -2.27539594 -1.4749574  -0.34014099  0.49184015
+   0.97251139  1.18549495  1.22060909]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.400744507687
+
+Degree of Polynomial n: 9
+Squared Cost Weights Learned: 
+[[ 0.74102428  0.6236072  -2.88893066 -1.88591918 -0.42116099  0.10411747
+   1.02158051  0.99683141  0.77325825  1.3180892 ]]
+Squared Cost Training Error: 0
+Squared Cost Test Error: 0.371019848545
+
+Absolute Cost Weights Learned: 
+[[ 0.73164653  0.67077867 -2.31578205 -2.75533248 -0.82303872  0.33884897
+   1.0213062   0.92678916  0.92255178  1.72144445]]
+Absolute Cost Training Error: 0
+Absolute Cost Test Error: 0.364819735848
+
+4th Power Cost Weights Learned: 
+[[ 0.83780075 -0.25300754 -2.18110282 -1.42022263 -0.36602081  0.38143919
+   0.78557244  0.93292321  0.91316088  0.79414564]]
+4th Power Cost Training Error: 0
+4th Power Cost Test Error: 0.400866933585
+

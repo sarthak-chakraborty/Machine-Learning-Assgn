@@ -1,0 +1,81 @@
+Generating 10 samples...
+Dataset Generated
+
+Dataset split into 80% training data and 20% test data
+
+Fitting a curve of 10 samples using linear regression...
+Curve fitting over
+
+
+
+Degree of Polynomial n: 1
+Weights Learned: 
+[[ 0.71623618 -1.91772778]]
+Training Error: 0.03347880124869895
+Test Error: 0.19635116631439406
+
+
+Degree of Polynomial n: 2
+Weights Learned: 
+[[ 0.50351665 -0.44030756 -1.46116074]]
+Training Error: 0.024835067489417793
+Test Error: 0.25134453633037146
+
+
+Degree of Polynomial n: 3
+Weights Learned: 
+[[ 0.36661119  0.02792665 -0.68865339 -1.33334384]]
+Training Error: 0.02249997414740563
+Test Error: 0.3196027198432776
+
+
+Degree of Polynomial n: 4
+Weights Learned: 
+[[ 0.38050069  0.00545474 -0.94698347 -0.82338668 -0.23187845]]
+Training Error: 0.02266532217482034
+Test Error: 0.3148366477994402
+
+
+Degree of Polynomial n: 5
+Weights Learned: 
+[[ 0.42362552 -0.29871245 -0.67424125 -0.65014284 -0.02867378 -0.42993251]]
+Training Error: 0.023547114274678756
+Test Error: 0.32097655040042666
+
+
+Degree of Polynomial n: 6
+Weights Learned: 
+[[ 0.37261328  0.04090942 -0.88535001 -0.89946219 -0.42683935 -0.21725897
+   0.46525277]]
+Training Error: 0.022180254339035012
+Test Error: 0.3028953027735966
+
+
+Degree of Polynomial n: 7
+Weights Learned: 
+[[ 0.39389216 -0.1164843  -0.80669698 -0.38091585 -0.82843429 -0.30201891
+  -0.16577251  0.69170963]]
+Training Error: 0.02231399429757205
+Test Error: 0.29877359907373596
+
+
+Degree of Polynomial n: 8
+Weights Learned: 
+[[ 0.40981298 -0.19030184 -0.7220996  -0.64722218 -0.25542423 -0.5763354
+  -0.21634278  0.19944659  0.53909   ]]
+Training Error: 0.022324028963252345
+Test Error: 0.2889829252080214
+
+
+Degree of Polynomial n: 9
+Weights Learned: 
+[[ 0.40284768 -0.03605338 -1.11882894 -0.63753844 -0.22421516 -0.12317906
+   0.01785919  0.043794    0.03299407  0.16981556]]
+Training Error: 0.022382611516468594
+Test Error: 0.28514957078622344
+
+
+
+
+
+Over..
