@@ -3,7 +3,7 @@ ROLL: 16CS30044
 
 
 ###################################
-			README
+	     README
 ###################################
 
 This readme file will tell you how to run the code and plot the graphs.
