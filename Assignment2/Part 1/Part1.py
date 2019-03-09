@@ -97,7 +97,9 @@ class DecisionTree:
 		self.features = []
 		self.gini = []
 		self.info_gain = []
-		self.node = 1
+		self.n_nodes = 1
+		self.children.append(-1)
+		self.features.append(-1)
 
 	def compute_gini(self, X):
 		length = len(X)
@@ -113,8 +115,11 @@ class DecisionTree:
 
 		return np.sum((gini*ni)/n)
 
-
 	def fit(self, X, Y):
+		self.fit_DT(X, Y, 0)
+
+
+	def fit_DT(self, X, Y, node):
 		n_features = len(X[0])
 		if(self.criteria == 'gini'):
 			gini = self.compute_gini(Y)
@@ -122,8 +127,6 @@ class DecisionTree:
 			compute_info_gain(Y)
 
 		if(gini == 0.0):
-			self.features.append(-1)
-			self.children.append(-1)
 			print(self.features)
 			print(self.children)
 			return
@@ -143,12 +146,15 @@ class DecisionTree:
 			measure_feature.append(self.combine_gini(measure, ni, len(X)))
 
 		attribute = measure_feature.index(min(measure_feature))
-		self.features.append(attribute)
+		self.features[node] = attribute
+
 		dic = {}
 		for l in np.unique(zip(*X)[attribute]):
-			dic[l] = self.node
-			self.node +=1
-		self.children.append(dic)
+			self.features.append(-1)
+			self.children.append(-1)
+			dic[l] = self.n_nodes
+			self.n_nodes +=1
+		self.children[node] = dic
 
 		print("Attribute chosen: "+str(attribute))
 		print(self.features)
@@ -165,12 +171,10 @@ class DecisionTree:
 				
 			print("X_new" + str(X_new))
 			print("Y_new" + str(Y_new))
+			print(self.children[node][l])
 			print("")
-			self.fit(X_new, Y_new)
+			self.fit_DT(X_new, Y_new, self.children[node][l])
 
-
-
-		# del X[attribute]
 
 			
 
