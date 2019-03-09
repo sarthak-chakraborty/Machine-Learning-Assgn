@@ -11,7 +11,7 @@ feature = []
 
 
 for data in df1.iloc[:,:]:
-	feature.append(str(data))
+	feature.append(str(data).strip())
 
 del feature[-1]
 
@@ -94,13 +94,13 @@ class DecisionTree:
 		self.criteria = criteria
 		self.children = []
 		self.features = []
-		self.gini = []
-		self.info_gain = []
+		self.measure = []
 		self.labels = []
 		self.n_nodes = 1
 		self.children.append(-1)
 		self.features.append(-1)
 		self.labels.append(-1)
+		self.measure.append(-1)
 
 	def compute_gini(self, X):
 		length = len(X)
@@ -110,27 +110,44 @@ class DecisionTree:
 		gini = 1 - sum((np.array(n)/float(length))**2)
 		return gini
 
-	def combine_gini(self, gini, ni, n):
-		gini = np.array(gini)
+	def combine_measure(self, measure, ni, n):
+		gini = np.array(measure)
 		ni = np.array(ni)
-
 		return np.sum((gini*ni)/n)
 
+	def compute_entropy(self, X):
+		length = len(X)
+		n = [0, 0]
+		for i in X:
+			n[i] += 1
+
+		prob = np.array(n)/float(length)
+		entropy = 0
+		for i in prob:
+			entropy += i*np.log2(i) if i else 0
+
+		return entropy*(-1)
+
+	def combine_entropy(self, entropy, ni, n):
+		entropy = np.array(entropy)
+		ni = np.array(ni)
+		return np.sum((entropy*ni)/n)
+
 	def fit(self, X, Y):
-		self.fit_DT(X, Y, 0)
-
-
-	def fit_DT(self, X, Y, node):
-		n_features = len(X[0])
 		if(self.criteria == 'gini'):
-			gini = self.compute_gini(Y)
+			flag = 1
 		elif(self.criteria == 'entropy'):
-			compute_info_gain(Y)
+			flag = 0
+		self.fit_DT(X, Y, 0, flag, -1)
 
-		if(gini == 0.0):
+
+	def fit_DT(self, X, Y, node, flag, prev_attr):
+		n_features = len(X[0])
+		node_measure = self.compute_gini(Y) if flag else self.compute_entropy(Y)
+		self.measure[node] = node_measure
+
+		if(node_measure == 0.0):
 			self.labels[node] = max(Y, key=Y.count)
-			print(self.features)
-			print(self.children)
 			return
 
 		measure_feature = []
@@ -143,27 +160,25 @@ class DecisionTree:
 				for k in range(len(X)):
 					if(X[k][i]==l):
 						Y_new.append(Y[k])
-				measure.append(self.compute_gini(Y_new))
+				measure.append(self.compute_gini(Y_new) if flag else self.compute_entropy(Y_new))
 				ni.append(len(Y_new))
-			measure_feature.append(self.combine_gini(measure, ni, len(X)))
+			measure_feature.append(self.combine_measure(measure, ni, len(X)))
 
+		measure_feature[prev_attr] = 1 if prev_attr!=-1 else measure_feature[prev_attr]
 		attribute = measure_feature.index(min(measure_feature))
 		self.features[node] = attribute
-
+		self.measure[node] = node_measure-measure_feature[attribute] if (flag==0) else node_measure
+		
 		dic = {}
 		for l in np.unique(zip(*X)[attribute]):
 			self.features.append(-1)
 			self.children.append(-1)
 			self.labels.append(-1)
+			self.measure.append(-1)
 			dic[l] = self.n_nodes
 			self.n_nodes +=1
 		self.children[node] = dic
 		self.labels[node] = max(Y, key=Y.count)
-
-		print("Attribute chosen: "+str(attribute))
-		print(self.features)
-		print(measure_feature)
-		print(self.children)
 
 		for l in np.unique(zip(*X)[attribute]):
 			X_new = []
@@ -172,13 +187,8 @@ class DecisionTree:
 				if(X[i][attribute] == l):
 					X_new.append(X[i])
 					Y_new.append(Y[i])
-				
-			print("X_new" + str(X_new))
-			print("Y_new" + str(Y_new))
-			print(self.children[node][l])
-			print("")
-			self.fit_DT(X_new, Y_new, self.children[node][l])
 
+			self.fit_DT(X_new, Y_new, self.children[node][l], flag, attribute)
 
 	def predict(self, X):
 		label = []
@@ -192,16 +202,22 @@ class DecisionTree:
 					break
 				else:
 					node = next_node
-			print(next_node)
 			label.append(output)
 		return label
+
+	def accuracy(self, X, Y):
+		pred = self.predict(X)
+		correct = 0
+		for i in range(len(Y)):
+			if(Y[i] == pred[i]):
+				correct += 1
+		return float(correct)/len(Y)
+
 
 
 def print_DT(children, split_attr, label, feature, node, level):
 	if(children[node] != -1):
 		print("")
-		for i in range(level):
-			print("\t"),
 	else:
 		if(label[node]==0):
 			print(": no")
@@ -209,8 +225,9 @@ def print_DT(children, split_attr, label, feature, node, level):
 			print(": yes")
 		return
 
-
 	for key in children[node]:
+		for i in range(level):
+			print("\t"),
 		print("|"+feature[split_attr[node]]+" ="),
 		if(split_attr[node]==0 or split_attr[node]==1):
 			if(key==0):
@@ -231,18 +248,49 @@ def print_DT(children, split_attr, label, feature, node, level):
 
 
 
-			
-
-clf = DecisionTree('gini')
-clf.fit(X_train, Y_train)
-print("\n\nHERE")
-print(clf.children)
-print(clf.features)
-print(clf.labels)
-
-ans = clf.predict(X_test)
-print("\n\nHERE")
-print(ans)
 
 
-print_DT(clf.children, clf.features, clf.labels, feature, 0, 0)
+clf1 = DecisionTree('gini')
+clf1.fit(X_train, Y_train)
+
+print("\n#################################")
+print("DECISION TREE trained using Gini Split")
+print("#################################")
+print("Structure: ")
+print_DT(clf1.children, clf1.features, clf1.labels, feature, 0, 0)
+print("_______________")
+print("\nGini Index of Root Node: " + "%.4f"%clf1.measure[0])
+ans = clf1.predict(X_test)
+print("\nLabels generated on test data: ")
+for i in range(len(ans)):
+	if(ans[i]==0):
+		print(str(i+1)+ ". no")
+	else:
+		print(str(i+1)+ ". yes")
+
+acc = clf1.accuracy(X_test, Y_test)
+print("\nAccuracy on Test Data: " + str(acc))
+print("\n")
+
+print("\n----------------------------------\n")
+
+clf2 = DecisionTree('entropy')
+clf2.fit(X_train, Y_train)
+
+print("\n#################################")
+print("DECISION TREE trained using Information Gain")
+print("#################################")
+print("Structure: ")
+print_DT(clf2.children, clf2.features, clf2.labels, feature, 0, 0)
+print("_______________")
+print("\nInformation Gain of Root Node: " + "%.4f"%clf2.measure[0])
+ans = clf2.predict(X_test)
+print("\nLabels generated on test data: ")
+for i in range(len(ans)):
+	if(ans[i]==0):
+		print(str(i+1)+ ". no")
+	else:
+		print(str(i+1)+ ". yes")
+
+acc = clf1.accuracy(X_test, Y_test)
+print("\nAccuracy on Test Data: " + str(acc))
