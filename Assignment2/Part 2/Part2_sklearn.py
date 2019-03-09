@@ -74,4 +74,4 @@ for depth in range(1,30):
 plt.figure()
 plt.plot([i for i in range(1,30)], acc_train)
 plt.plot([i for i in range(1,30)], acc_test, color='r')
-plt.show()
+plt.savefig("Plot.png")
