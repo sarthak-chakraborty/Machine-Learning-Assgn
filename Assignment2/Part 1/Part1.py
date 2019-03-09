@@ -93,13 +93,14 @@ class DecisionTree:
 	def __init__(self, criteria):
 		self.criteria = criteria
 		self.children = []
-		self.children_right = []
 		self.features = []
 		self.gini = []
 		self.info_gain = []
+		self.labels = []
 		self.n_nodes = 1
 		self.children.append(-1)
 		self.features.append(-1)
+		self.labels.append(-1)
 
 	def compute_gini(self, X):
 		length = len(X)
@@ -127,6 +128,7 @@ class DecisionTree:
 			compute_info_gain(Y)
 
 		if(gini == 0.0):
+			self.labels[node] = max(Y, key=Y.count)
 			print(self.features)
 			print(self.children)
 			return
@@ -152,9 +154,11 @@ class DecisionTree:
 		for l in np.unique(zip(*X)[attribute]):
 			self.features.append(-1)
 			self.children.append(-1)
+			self.labels.append(-1)
 			dic[l] = self.n_nodes
 			self.n_nodes +=1
 		self.children[node] = dic
+		self.labels[node] = max(Y, key=Y.count)
 
 		print("Attribute chosen: "+str(attribute))
 		print(self.features)
@@ -176,8 +180,69 @@ class DecisionTree:
 			self.fit_DT(X_new, Y_new, self.children[node][l])
 
 
-			
+	def predict(self, X):
+		label = []
+		for i in X:
+			node = 0
+			while(1):
+				output = self.labels[node]
+				next_node = self.children[node][i[self.features[node]]]
+				if(self.children[next_node] == -1):
+					output = self.labels[next_node]
+					break
+				else:
+					node = next_node
+			print(next_node)
+			label.append(output)
+		return label
 
+
+def print_DT(children, split_attr, label, feature, node, level):
+	if(children[node] != -1):
+		print("")
+		for i in range(level):
+			print("\t"),
+	else:
+		if(label[node]==0):
+			print(": no")
+		else:
+			print(": yes")
+		return
+
+
+	for key in children[node]:
+		print("|"+feature[split_attr[node]]+" ="),
+		if(split_attr[node]==0 or split_attr[node]==1):
+			if(key==0):
+				print("low"),
+			elif(key==1):
+				print("med"),
+			elif(key==2):
+				print("high"),
+		elif(split_attr[node]==2):
+			print(key),
+		elif(split_attr[node]==3):
+			if(key==0):
+				print("no"),
+			else:
+				print("yes"),
+		a = children[node][key]
+		print_DT(children, split_attr, label, feature, a, level+1)
+
+
+
+			
 
 clf = DecisionTree('gini')
 clf.fit(X_train, Y_train)
+print("\n\nHERE")
+print(clf.children)
+print(clf.features)
+print(clf.labels)
+
+ans = clf.predict(X_test)
+print("\n\nHERE")
+print(ans)
+
+
+print_DT(clf.children, clf.features, clf.labels, feature, 0, 0)
