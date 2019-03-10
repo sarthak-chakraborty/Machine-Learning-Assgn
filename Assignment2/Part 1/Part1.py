@@ -128,11 +128,6 @@ class DecisionTree:
 
 		return entropy*(-1)
 
-	def combine_entropy(self, entropy, ni, n):
-		entropy = np.array(entropy)
-		ni = np.array(ni)
-		return np.sum((entropy*ni)/n)
-
 	def fit(self, X, Y):
 		if(self.criteria == 'gini'):
 			flag = 1
@@ -245,7 +240,6 @@ def print_DT(children, split_attr, label, feature, node, level):
 				print("yes"),
 		a = children[node][key]
 		print_DT(children, split_attr, label, feature, a, level+1)
-
 
 
 

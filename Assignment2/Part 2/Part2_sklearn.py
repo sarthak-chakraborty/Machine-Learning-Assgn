@@ -63,14 +63,13 @@ print(len(Y_test))
 acc_train = []
 acc_test = []
 for depth in range(1,30):
-	clf1 = DecisionTreeClassifier(random_state=0, max_depth=depth).fit(X_train, Y_train)
-	label_gini = clf1.predict(X_test)
-	acc_gini = clf1.score(X_test, Y_test)
-	acc_test.append(acc_gini)
-	acc_gini = clf1.score(X_train, Y_train)
-	acc_train.append(acc_gini)
+	clf1 = DecisionTreeClassifier(criterion='entropy',random_state=0, max_depth=depth).fit(X_train, Y_train)
+	label = clf1.predict(X_test)
+	acc = clf1.score(X_test, Y_test)
+	acc_test.append(acc)
+	acc = clf1.score(X_train, Y_train)
+	acc_train.append(acc)
 
-# print("%.4f" %acc_gini)
 plt.figure()
 plt.plot([i for i in range(1,30)], acc_train)
 plt.plot([i for i in range(1,30)], acc_test, color='r')
