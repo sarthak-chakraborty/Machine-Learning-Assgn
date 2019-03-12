@@ -1,91 +1,20 @@
 import numpy as np
 import pandas as pd
 
-xls = pd.ExcelFile('dataset for part 1.xlsx')
-df1 = pd.read_excel(xls, sheet_name='Training Data')
-df2 = pd.read_excel(xls, sheet_name='Test Data')
+df1 = pd.read_csv("./dataset for part 1 - Training Data.csv")
+df2 = pd.read_csv("./dataset for part 1 - Test Data.csv")
 
-train_data = []
-test_data = []
+df1 = df1.replace(to_replace=['high','med','low','yes','no'],value=[2,1,0,1,0])
+df2 = df2.replace(to_replace=['high','med','low','yes','no'],value=[2,1,0,1,0])
+
 feature = []
-
-
 for data in df1.iloc[:,:]:
 	feature.append(str(data).strip())
 
-del feature[-1]
-
-for i in range(len(df1)):
-	row = []
-	for data in df1.iloc[i,:]:
-		if(type(data) == unicode):
-			row.append(str(data))
-		else:
-			row.append(data)
-	train_data.append(row)
-
-
-for i in range(len(df2)):
-	row = []
-	for data in df2.iloc[i,:]:
-		if(type(data) == unicode):
-			row.append(str(data))
-		else:
-			row.append(data)
-	test_data.append(row)
-
-
-X_train = []
-Y_train = []
-X_test = []
-Y_test = []
-
-
-for i in range(0, len(train_data)):
-	row = []
-	for j in range(0,len(train_data[i])):
-		if(j==len(train_data[i])-1):
-			if(train_data[i][j]=='yes'):
-				Y_train.append(1)
-			else:
-				Y_train.append(0)
-		else:
-			if(train_data[i][j]=='low'):
-				row.append(0)
-			elif(train_data[i][j]=='med'):
-				row.append(1)
-			elif(train_data[i][j]=='high'):
-				row.append(2)
-			elif(train_data[i][j]=='yes'):
-				row.append(1)
-			elif(train_data[i][j]=='no'):
-				row.append(0)
-			else:
-				row.append(int(train_data[i][j]))
-	X_train.append(row)
-
-for i in range(0, len(test_data)):
-	row = []
-	for j in range(0,len(test_data[i])):
-		if(j==len(test_data[i])-1):
-			if(test_data[i][j]=='yes'):
-				Y_test.append(1)
-			else:
-				Y_test.append(0)
-		else:
-			if(test_data[i][j]=='low'):
-				row.append(0)
-			elif(test_data[i][j]=='med'):
-				row.append(1)
-			elif(test_data[i][j]=='high'):
-				row.append(2)
-			elif(test_data[i][j]=='yes'):
-				row.append(1)
-			elif(test_data[i][j]=='no'):
-				row.append(0)
-			else:
-				row.append(int(test_data[i][j]))
-	X_test.append(row)
+X_train = [list(df1.iloc[i,:-1]) for i in range(len(df1))]
+Y_train = list(df1[feature[-1]])
+X_test = [list(df2.iloc[i,:-1]) for i in range(len(df2))]
+Y_test = list(df2[feature[-1]])
 
 
 

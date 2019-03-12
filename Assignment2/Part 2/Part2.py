@@ -1,36 +1,34 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import datetime
 
 words = []
 f = open("./dataset for part 2/words.txt","r")
 for x in f:
-	words.append(x)
+	words.append(x.strip())
 
-print(len(words))
 
 X_train = [[0]*len(words)]
 f = open("./dataset for part 2/traindata.txt","r")
 i, j = 0, 1
 for x in f:
 	doc = int(x.split('\t')[0])
+	if(doc==1018 and j==1016):
+		X_train.append([0]*len(words))
+		i += 1
 	if(doc != j):
 		X_train.append([0]*len(words))
 		i += 1
 	X_train[i][int(x.split('\t')[1])-1] = 1
 	j = doc
 
-print(len(X_train))
+
 
 Y_train = []
 f = open("./dataset for part 2/trainlabel.txt","r")
-count = 1
 for x in f:
-	if(count != 1017):
-		Y_train.append(int(x))
-	count += 1
-
-print(len(Y_train))
+	Y_train.append(int(x))
 
 
 X_test = [[0]*len(words)]
@@ -44,36 +42,14 @@ for x in f:
 	X_test[i][int(x.split('\t')[1])-1] = 1
 	j = doc
 
-print(len(X_test))
 
 Y_test = []
 f = open("./dataset for part 2/testlabel.txt","r")
 for x in f:
 	Y_test.append(int(x))
 	
-print(len(Y_test))
 
 
-count01 = 0
-count02 = 0
-count11 = 0
-count12 = 0
-for i in range(len(X_train)):
-	if(X_train[i][484] == 0):
-		if(Y_train[i] == 1):
-			count01 += 1
-		else:
-			count02 += 1
-	elif(X_train[i][484] == 1):
-		if(Y_train[i] == 1):
-			count11 += 1
-		else:
-			count12 += 1
-
-print(count01)
-print(count02)
-print(count11)
-print(count12)
 
 
 class DecisionTree:
@@ -126,6 +102,7 @@ class DecisionTree:
 
 	def fit_DT(self, X, Y, node, flag, prev_attr, level):
 		if(level > self.depth):
+			self.labels[node] = max(Y, key=Y.count)
 			return
 
 		n_features = len(X[0])
@@ -138,6 +115,7 @@ class DecisionTree:
 
 		measure_feature = []
 		for i in range(n_features):
+			# print(i)
 			feat = [0,1]
 			measure = []
 			ni = []
@@ -151,7 +129,7 @@ class DecisionTree:
 			measure_feature.append(self.combine_measure(measure, ni, len(X)))
 
 		measure_feature[prev_attr] = 1 if prev_attr!=-1 else measure_feature[prev_attr]
-		attribute = measure_feature.index(min(measure_feature))
+		attribute = np.argmin(measure_feature) #measure_feature.index(min(measure_feature))
 		self.features[node] = attribute
 		self.measure[node] = node_measure-measure_feature[attribute] if (flag==0) else node_measure
 		
@@ -200,23 +178,70 @@ class DecisionTree:
 		return float(correct)/len(Y)
 
 
+
+def print_DT(children, split_attr, label, words, node, level):
+	if(children[node] != -1):
+		print("")
+	else:
+		print(": "+str(label[node]))
+		return
+
+	for key in children[node]:
+		for i in range(level):
+			print("   "),
+		print("|"+words[split_attr[node]]+" ="),
+		print(key),
+		a = children[node][key]
+		print_DT(children, split_attr, label, words, a, level+1)
+
+
+
+depth = int(input("Enter max depth of the tree: "))
+clf = DecisionTree(criteria='entropy', depth=depth-1)
+clf.fit(X_train, Y_train)
+acc_train = clf.accuracy(X_train, Y_train)
+acc_test = clf.accuracy(X_test, Y_test)
+print("Train Accuracy for Decision Tree on depth=" + str(depth) + ": " + str(acc_train))
+print("Test Accuracy for Decision Tree on depth=" + str(depth) + ": " + str(acc_test))
+
+
+print("\n\n##################################")
+print("Now we will generate a plot of accuracy vs maximum depth by varying the depth. Calculating for each depth...")
+
+
 acc_train = []
 acc_test = []
-for i in range(10,11):
-	print(i)
-	clf1 = DecisionTree(criteria='entropy',depth=i)
-	clf1.fit(X_train, Y_train)
-	acc = clf1.accuracy(X_test, Y_test)
+for i in range(1,30):
+	clf = DecisionTree(criteria='entropy',depth=i-1)
+	clf.fit(X_train, Y_train)
+	acc = clf.accuracy(X_test, Y_test)
 	acc_test.append(acc)
-	acc = clf1.accuracy(X_train, Y_train)
+	acc = clf.accuracy(X_train, Y_train)
 	acc_train.append(acc)
-
-print(clf1.measure[0])
-print(clf1.features[0])
-print(clf1.accuracy(X_test, Y_test))
+	print("Depth " + str(i) + " done.")
 
 
-# plt.figure()
-# plt.plot([i for i in range(1,30)], acc_train)
-# plt.plot([i for i in range(1,30)], acc_test, color='r')
-# plt.savefig("Plot1.png")
+print("Plotting Train and Test accuracy vs Maximum Depth Curve...")
+plt.figure()
+plt.plot([i for i in range(1,30)], acc_train)
+plt.plot([i for i in range(1,30)], acc_test, color='r')
+plt.title("Train, Test Accuracy vs Maximum Depth")
+plt.xlabel("Maximum Depth")
+plt.ylabel("Accuracy")
+plt.legend(["Train Accuracy","Test Accuracy"])
+print("Plotting Done.")
+
+highest_depth = np.argmax(acc_test) + 1
+
+plt.axvline(x=highest_depth, color='k', linestyle='--')
+plt.savefig("My Implementation.png")
+
+clf = DecisionTree(criteria='entropy', depth=highest_depth-1)
+clf.fit(X_train, Y_train)
+
+print("\n\nHighest test accuracy is attained at depth = " + str(highest_depth))
+print("Train Accuracy: " + str(clf.accuracy(X_train, Y_train)))
+print("Test Accuracy: " + str(clf.accuracy(X_test, Y_test)))
+print("\nTree Structure:")
+print("-------------------")
+print_DT(clf.children, clf.features, clf.labels, words, 0, 0)
