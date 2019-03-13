@@ -190,6 +190,12 @@ for i in range(len(ans)):
 		print(str(i+1)+ ". no")
 	else:
 		print(str(i+1)+ ". yes")
+print("Actual Labels: ")
+for i in range(len(Y_test)):
+	if(Y_test[i]==0):
+		print(str(i+1)+ ". no")
+	else:
+		print(str(i+1)+ ". yes")
 
 acc = clf1.accuracy(X_test, Y_test)
 print("\nAccuracy on Test Data: " + str(acc))
@@ -211,6 +217,12 @@ ans = clf2.predict(X_test)
 print("\nLabels generated on test data: ")
 for i in range(len(ans)):
 	if(ans[i]==0):
+		print(str(i+1)+ ". no")
+	else:
+		print(str(i+1)+ ". yes")
+print("Actual Labels: ")
+for i in range(len(Y_test)):
+	if(Y_test[i]==0):
 		print(str(i+1)+ ". no")
 	else:
 		print(str(i+1)+ ". yes")
