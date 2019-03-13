@@ -1,9 +1,6 @@
 import numpy as np
-import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn import tree
-from sklearn.preprocessing import LabelEncoder
-from sklearn.preprocessing import OneHotEncoder
 import matplotlib.pyplot as plt
 
 
@@ -66,24 +63,30 @@ print("Now we will generate a plot of accuracy vs maximum depth by varying the d
 
 acc_train = []
 acc_test = []
-for depth in range(1,30):
-	clf = DecisionTreeClassifier(criterion='entropy', random_state=0, max_depth=depth).fit(X_train, Y_train)
+prev_train_acc = 0
+i = 1
+while(prev_train_acc != 1.0):
+	clf = DecisionTreeClassifier(criterion='entropy', random_state=0, max_depth=i).fit(X_train, Y_train)
 	label = clf.predict(X_test)
 	acc = clf.score(X_test, Y_test)
 	acc_test.append(acc)
 	acc = clf.score(X_train, Y_train)
 	acc_train.append(acc)
-	print("Depth " + str(depth) + " done.")
+	prev_train_acc = acc
+	print("Depth " + str(i) + " done.")
+	i += 1
 
 print("\n\n")
 
+
 print("Plotting Train and Test accuracy vs Maximum Depth Curve...")
 plt.figure()
-plt.plot([i for i in range(1,30)], acc_train)
-plt.plot([i for i in range(1,30)], acc_test, color='r')
+plt.plot([j for j in range(1,i)], acc_train)
+plt.plot([j for j in range(1,i)], acc_test, color='r')
 plt.title("Train, Test Accuracy vs Maximum Depth")
 plt.xlabel("Maximum Depth")
 plt.ylabel("Accuracy")
+plt.xticks([2*j for j in range(0,i/2)])
 plt.legend(["Train Accuracy","Test Accuracy"])
 print("Plotting Done.")
 

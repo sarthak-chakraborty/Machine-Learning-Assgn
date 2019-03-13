@@ -1,7 +1,5 @@
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
-import datetime
 
 words = []
 f = open("./dataset for part 2/words.txt","r")
@@ -129,7 +127,7 @@ class DecisionTree:
 			measure_feature.append(self.combine_measure(measure, ni, len(X)))
 
 		measure_feature[prev_attr] = 1 if prev_attr!=-1 else measure_feature[prev_attr]
-		attribute = np.argmin(measure_feature) #measure_feature.index(min(measure_feature))
+		attribute = np.argmin(measure_feature)
 		self.features[node] = attribute
 		self.measure[node] = node_measure-measure_feature[attribute] if (flag==0) else node_measure
 		
@@ -211,23 +209,28 @@ print("Now we will generate a plot of accuracy vs maximum depth by varying the d
 
 acc_train = []
 acc_test = []
-for i in range(1,30):
+prev_train_acc = 0
+i = 1
+while(prev_train_acc != 1):
 	clf = DecisionTree(criteria='entropy',depth=i-1)
 	clf.fit(X_train, Y_train)
 	acc = clf.accuracy(X_test, Y_test)
 	acc_test.append(acc)
 	acc = clf.accuracy(X_train, Y_train)
+	prev_train_acc = acc
 	acc_train.append(acc)
 	print("Depth " + str(i) + " done.")
+	i += 1
 
 
 print("Plotting Train and Test accuracy vs Maximum Depth Curve...")
 plt.figure()
-plt.plot([i for i in range(1,30)], acc_train)
-plt.plot([i for i in range(1,30)], acc_test, color='r')
+plt.plot([j for j in range(1,i)], acc_train)
+plt.plot([j for j in range(1,i)], acc_test, color='r')
 plt.title("Train, Test Accuracy vs Maximum Depth")
 plt.xlabel("Maximum Depth")
 plt.ylabel("Accuracy")
+plt.xticks([2*j for j in range(0,i/2)])
 plt.legend(["Train Accuracy","Test Accuracy"])
 print("Plotting Done.")
 
