@@ -6,26 +6,27 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import OneHotEncoder
 import graphviz 
 
+# Reading data in DataFrame
 df1 = pd.read_csv("./dataset for part 1 - Training Data.csv")
 df2 = pd.read_csv("./dataset for part 1 - Test Data.csv")
 
+# Converting to integer encoding
 df1 = df1.replace(to_replace=['high','med','low','yes','no'],value=[2,1,0,1,0])
 df2 = df2.replace(to_replace=['high','med','low','yes','no'],value=[2,1,0,1,0])
 
+# Extracting the names of the features
 feature = []
 for data in df1.iloc[:,:]:
 	feature.append(str(data).strip())
 
+# Extracting the attribute values and storing them in a list
 X_train = df1[feature[:-1]]
 Y_train = df1[feature[-1]]
 X_test = df2[feature[:-1]]
 Y_test = df2[feature[-1]]
 
-# enc = OneHotEncoder(handle_unknown='ignore')
-# enc.fit(X_train)
-# X_train = enc.transform(X_train).toarray()
-# X_test = enc.transform(X_test).toarray()
 
+# Fits the decision tree taking gini index of a node as impurity measure
 clf1 = DecisionTreeClassifier(random_state=0).fit(X_train, Y_train)
 label_gini = clf1.predict(X_test)
 acc_gini = clf1.score(X_test, Y_test)
@@ -53,17 +54,16 @@ for i in range(len(Y_test)):
 
 print("\nAccuracy on Test Data: " + str(acc_gini))
 
+# Makes the graph of the tree in graphviz
 dot_data = tree.export_graphviz(clf1, out_file=None, feature_names=feature[:-1], class_names=['yes','no'])
 graph = graphviz.Source(dot_data) 
 graph.render("Gini")
 
-# dot_data = tree.export_graphviz(clf1, out_file=None, class_names=['yes','no'])
-# graph = graphviz.Source(dot_data) 
-# graph.render("Gini")
 
 print("\n")
 
 
+# Fits the decision tree with entropy of a node as the measure of impurity
 clf2 = DecisionTreeClassifier(criterion='entropy', random_state=0).fit(X_train,Y_train)
 label_entropy = clf2.predict(X_test)
 acc_entropy = clf2.score(X_test, Y_test)
@@ -94,11 +94,7 @@ for i in range(len(Y_test)):
 
 print("\nAccuracy on Test Data: " + str(acc_entropy))
 
+# Makes the graph of the tree in graphviz
 dot_data = tree.export_graphviz(clf2, out_file=None, feature_names=feature[:-1], class_names=['yes','no'])
 graph = graphviz.Source(dot_data) 
 graph.render("Entropy")
-
-# dot_data = tree.export_graphviz(clf2, out_file=None, class_names=['yes','no'])
-# graph = graphviz.Source(dot_data) 
-# graph.render("Entropy")
-
