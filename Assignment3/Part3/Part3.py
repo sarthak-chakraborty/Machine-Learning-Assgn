@@ -82,3 +82,5 @@ print("\nSingle Linkage Heirarchical Clustering: "+str(nmi))
 
 nmi = calc_NMI(gold_standard, c3, N)
 print("\nGirvan Newman Graph CLustering: "+str(nmi))
+
+print("")

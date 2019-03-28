@@ -101,7 +101,8 @@ clf.fit(topics)
 # Print clusters
 c = clf.cluster[9]
 for i in range(len(c)):
-	print("Cluster " + str(i) + ": " + str(c[i]) + "\n")
+	print("Cluster " + str(i) + ": " + str(c[i]))
+	print("Number of Points: " + str(len(c[i])) + "\n")
 
 # Save the clusters in a "npy" file to be used later
 np.save("Complete", c)
@@ -121,6 +122,7 @@ clf.fit(topics)
 # Print clusters
 c = clf.cluster[9]
 for i in range(len(c)):
-	print("Cluster " + str(i) + ": " + str(c[i]) + "\n")
+	print("Cluster " + str(i) + ": " + str(c[i]))
+	print("Number of Points: " + str(len(c[i])) + "\n")
 
 np.save("Single", c)

@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import operator
 
 
+THRESHOLD = 0.18
 
 
 
@@ -75,13 +76,13 @@ nodes = G.nodes()
 for i in range(len(nodes)):
 	for j in range(i+1, len(nodes)):
 		coef = compute_jaccard_coef(topics[i], topics[j])
-		if(coef > 0.21):
+		if(coef > THRESHOLD):
 			G.add_edge(i, j)
 
-nx.draw(G)
+nx.draw(G, node_size=100)
 plt.draw()
 plt.title("Original Network")
-plt.savefig("Input.png")
+plt.savefig("Input (T="+str(THRESHOLD)+").png")
 
 
 
@@ -93,7 +94,8 @@ clf.fit(G, len(topics))
 print("\n")
 c = clf.cluster[9]
 for i in range(len(c)):
-	print("Cluster " + str(i) + ": " + str(c[i]) + "\n")
+	print("Cluster " + str(i) + ": " + str(c[i]))
+	print("Number of Points: " + str(len(c[i])) + "\n")
 
 np.save("Graph", c)
 
@@ -105,18 +107,18 @@ G1 = nx.Graph()
 
 # Add nodes to the graph
 for i in range(len(topics)):
-	G.add_node(i)
+	G1.add_node(i)
 
 # Add edge to the new graph
 for cluster in c:
 	for i in range(len(cluster)):
 		for j in range(i+1, len(cluster)):
 			coef = compute_jaccard_coef(topics[cluster[i]], topics[cluster[j]])
-			if(coef > 0.21):
+			if(coef > THRESHOLD):
 				G1.add_edge(cluster[i], cluster[j])
 
 plt.figure()
-nx.draw(G1)
+nx.draw(G1, node_size=50)
 plt.draw()
 plt.title("Network with 9 clusters")
-plt.savefig("Output.png")
+plt.savefig("Output (T="+str(THRESHOLD)+").png")
