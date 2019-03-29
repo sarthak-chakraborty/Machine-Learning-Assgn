@@ -35,7 +35,7 @@ def calc_NMI(X, C, N):
 		Hcyx = calc_entropy(Ycx, len(x))
 		Hyc += p*Hcyx
 
-	Iyc = Hy - Hyc 		# Mutul Information
+	Iyc = Hy - Hyc 		# Mutual Information
 
 	return (2*Iyc)/(Hy+Hc) 	# Return NMI
 
@@ -62,7 +62,6 @@ counter = 0
 for key in gold_standard:
 	gold_standard[counter] = gold_standard.pop(key)
 	counter += 1
-
 
 
 

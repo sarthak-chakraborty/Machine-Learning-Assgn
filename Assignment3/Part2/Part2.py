@@ -2,15 +2,14 @@ import numpy as np
 import pandas as pd 
 import networkx as nx 
 import matplotlib.pyplot as plt 
-import operator
 
 
-THRESHOLD = 0.18
+THRESHOLD = 0.21
 
 
 
 # Class that would perform the Girvan Newman clustering algorithm
-class Clustering:
+class Cluster:
 	# Initialize the class variable
 	def __init__(self):
 		self.cluster = dict()
@@ -88,10 +87,15 @@ plt.savefig("Input (T="+str(THRESHOLD)+").png")
 
 
 # Perform clustering
-clf = Clustering()
+clf = Cluster()
 clf.fit(G, len(topics))
 
 print("\n")
+print('##############################')
+print("   GIRVAN NEWMAN ALGORITHM")
+print('##############################')
+print('No. of Clusters = 9')
+print('Threshold = '+str(THRESHOLD)+"\n")
 c = clf.cluster[9]
 for i in range(len(c)):
 	print("Cluster " + str(i) + ": " + str(c[i]))
