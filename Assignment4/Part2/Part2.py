@@ -5,16 +5,22 @@ import re
 from nltk.stem import PorterStemmer 
 from nltk.tokenize import word_tokenize
 import random
+from math import e
 
 
 batch_size = 512
-n_hidden_layer = 1
-n_nodes = [100]
+n_hidden_layer = 2
+
+node1, node2 = input("Enter number of nodes in each of the 2 hidden layers: ").split()
+node1 = int(node1)
+node2 = int(node2)
+
+n_nodes = [node1, node2]
 n_nodes_total = [0] + n_nodes
 learning_rate = 0.1
 n_epochs = 1
-n_nodes_out = 1
-thresh = 500
+n_nodes_out = 2
+# thresh = 3
 
 
 def preprocess(x_train, y_train, x_test, y_test):
@@ -96,16 +102,7 @@ def data_loader(x_train, y_train):
 	y_load.append([b[1] for b in X])
 
 	return np.array(x_load), np.array(y_load)
-			
 
-
-def relu(x):
-	return np.array([max(0,i) for i in x])
-
-
-def relu_derivative(x):
-	a = 0 if x<=0 else 1
-	return a
 
 
 
@@ -123,6 +120,28 @@ def bias_initializer(B, out_dim):
 		B[i] = [np.random.uniform(0,1) for j in range(n_nodes[i])]
 	return B
 
+
+
+def sigmoid(x):
+	f = []
+	for i in x:
+		a = 1.0/(1 + e**(-i))
+		f.append(a)
+
+	return np.array(f)
+
+
+
+
+def softmax(x):
+	result = []
+	for i in range(len(x)):
+		result.append(e**x[i])
+
+	result = np.array(result)
+	result /= np.sum(result)
+
+	return list(result)
 
 
 
@@ -143,80 +162,15 @@ def forward(weights, bias, x_train):	# x_train has 512 numbers of 7306 length ve
 			# print("HELLO: ",np.dot(hidden_state, weights[j]).shape)
 			# print("")
 			z = np.dot(hidden_state, weights[j]) + bias[j]
-			hidden_state = relu(np.dot(hidden_state, weights[j]) + bias[j])
+			hidden_state = sigmoid(np.dot(hidden_state, weights[j]) + bias[j])
 			# print(hidden_state)
 		# print(hidden_state)
-		pred.append([0 if hidden_state[i]>thresh else 1 for i in range(len(hidden_state))]) #pred is a 2D array (n_sample, n_out_nodes)
+		pred.append(softmax(hidden_state))
+		# pred.append([0 if hidden_state[i]>thresh else 1 for i in range(len(hidden_state))]) #pred is a 2D array (n_sample, n_out_nodes)
 	print(pred)
 	return np.array(pred), np.array(inp), np.array(out)
 
 
-
-
-
-def backward(weights, bias, inputs, outputs, pred, actual):
-	n_samples = len(inputs)
-	
-	delta_error = [[-1.0/(pred[i][j] + np.finfo(float).eps) if(actual[i]==1) else 1.0/(1 - pred[i][j] + np.finfo(float).eps) for j in range(n_nodes_out)] for i in range(n_samples)]
-	delta_error = np.array(delta_error)
-	# print(delta_error.shape)
-	
-
-	delta = [[] for i in range(n_samples)]
-	for i in range(n_samples):
-		a = []
-		for j in range(n_nodes_out):
-			inp = relu_derivative(inputs[i][n_hidden_layer][j])
-			a.append(delta_error[i][j] * inp)
-		delta[i] = a
-	delta = np.array(delta)
-
-	# print(delta.shape)
-
-	for i in range(n_hidden_layer+1):
-		nebla_weights = np.matmul(delta.T, np.array(list(zip(*outputs))[-1-i]))
-		nebla_bias = np.array([np.sum(delta, axis=0)]).reshape(-1)
-
-		# print("Nebla Weight : ",nebla_weights.shape)
-		# print("Nebla Bias: ", nebla_bias.T.shape)
-		# print(np.array(weights[-1-i]).shape)
-		# print(np.array(bias[-1-i]).shape)
-
-		if(i != n_hidden_layer):
-			b = np.dot(delta, weights[-1-i].T)
-			# print("b: ",b.shape)
-			# print(np.array(list(zip(*inputs))[-1-i]).shape)
-			delta = [[] for i in range(n_samples)]
-			for j in range(n_samples):
-				a = []
-				for k in range(n_nodes_total[-1-i]):
-					inp = relu_derivative(inputs[j][n_hidden_layer-1-i][k])
-					a.append(b[j][k] * inp)
-				delta[j] = a
-			delta = np.array(delta)
-			# print("delta : ",delta.shape)
-
-		# delta = np.matmul(np.array(list(zip(*inputs))[-1-i]), b)
-
-		weights[-1-i] -= learning_rate*nebla_weights.T
-		bias[-1-i] -= learning_rate*nebla_bias.T	
-		
-	return weights, bias
-
-
-
-def get_accuracy(weights, bias, X_train, Y_train):
-	count = 0
-	for i in range(len(X_train)):
-		pred, inp, out = forward(weights, bias, X_train[i])
-		# print(pred)
-		# print("")
-		for j in pred:
-			if(j[0] == Y_train[j]):
-				count += 1
-
-	print(count)
-	return count/len(Y_train)
 
 
 
@@ -237,8 +191,6 @@ def training(weights, bias, X_train, Y_train):
 		print("Accuracy: ",accuracy)
 
 	return weights, bias
-
-
 
 
 
@@ -269,5 +221,5 @@ bias = [[] for i in range(n_hidden_layer+1)]
 weights = np.array(weight_initializer(weights, len(x_train[0]), n_nodes_out)) 
 bias = np.array(bias_initializer(bias, n_nodes_out))
 
-
 weights, bias = training(weights, bias, X_train, Y_train)
+
