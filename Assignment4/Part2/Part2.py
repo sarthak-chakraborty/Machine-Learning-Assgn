@@ -6,21 +6,21 @@ from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
 import random
 from math import e
+import sys
+import matplotlib.pyplot as plt
 
 
 batch_size = 512
 n_hidden_layer = 2
 
-node1, node2 = input("Enter number of nodes in each of the 2 hidden layers: ").split()
-node1 = int(node1)
-node2 = int(node2)
+node1 = int(sys.argv[1])
+node2 = int(sys.argv[2])
 
 n_nodes = [node1, node2]
 n_nodes_total = [0] + n_nodes
 learning_rate = 0.1
-n_epochs = 1
+n_epochs = 20
 n_nodes_out = 2
-# thresh = 3
 
 
 def preprocess(x_train, y_train, x_test, y_test):
@@ -28,6 +28,7 @@ def preprocess(x_train, y_train, x_test, y_test):
 	d = []
 	stopwords = []
 	label = []
+	out = []
 	with open("../Assignment_4_data.txt") as f:
 		for line in f:
 			a = line.split('\t')
@@ -37,6 +38,10 @@ def preprocess(x_train, y_train, x_test, y_test):
 	for i in range(len(label)):
 		label[i] = 0 if(label[i]=='ham') else 1
 
+	for i in range(len(label)):
+		a = [1, 0] if label[i]==0 else [0,1]
+		out.append(a)
+
 	with open("../NLTK's list of english stopwords") as f:
 		stopwords = [line.strip().split('\n')[0] for line in f]
 
@@ -45,7 +50,6 @@ def preprocess(x_train, y_train, x_test, y_test):
 	regexPattern = '|'.join(map(re.escape, delim))
 	for x in d:
 		a = re.split(regexPattern, x)
-		# a = re.split('\W+', x)
 		del a[-1]
 		a = [y.lower() for y in a]
 		tokenized_data.append(a)
@@ -66,7 +70,6 @@ def preprocess(x_train, y_train, x_test, y_test):
 		tokens = tokens.union(set(sample))
 	tokens = list(tokens)
 	tokens.sort()
-	print(len(tokens))
 	n_nodes_total[0] = len(tokens)
 
 	train = []
@@ -83,10 +86,10 @@ def preprocess(x_train, y_train, x_test, y_test):
 		x = np.random.uniform(0,1)
 		if(x<0.8):
 			x_train.append(train[i])
-			y_train.append(label[i])
+			y_train.append(out[i])
 		else:
 			x_test.append(train[i])
-			y_test.append(label[i])
+			y_test.append(out[i])
 
 
 
@@ -107,17 +110,17 @@ def data_loader(x_train, y_train):
 
 
 def weight_initializer(W, in_dim, out_dim):
-	W[0] = np.array([[np.random.uniform(0,1) for i in range(n_nodes[0])] for j in range(in_dim)])
-	W[-1] = np.array([[np.random.uniform(0,1) for i in range(out_dim)] for j in range(n_nodes[n_hidden_layer-1])])
+	W[0] = np.array([[np.random.uniform(-0.01,0.01) for i in range(n_nodes[0])] for j in range(in_dim)])
+	W[-1] = np.array([[np.random.uniform(-0.01,0.01) for i in range(out_dim)] for j in range(n_nodes[n_hidden_layer-1])])
 	for i in range(len(W)-2):
-		W[i+1] = [[np.random.uniform(0,1) for j in range(n_nodes[i+1])] for k in range(n_nodes[i])]
+		W[i+1] = np.array([[np.random.uniform(-0.01,0.01) for j in range(n_nodes[i+1])] for k in range(n_nodes[i])])
 	return W
 
 
 def bias_initializer(B, out_dim):
-	B[-1] = [np.random.uniform(0,1) for i in range(out_dim)]
+	B[-1] = [np.random.uniform(0,0.0001) for i in range(out_dim)]
 	for i in range(len(B)-1):
-		B[i] = [np.random.uniform(0,1) for j in range(n_nodes[i])]
+		B[i] = [np.random.uniform(0,0.0001) for j in range(n_nodes[i])]
 	return B
 
 
@@ -131,10 +134,15 @@ def sigmoid(x):
 	return np.array(f)
 
 
+def sigmoid_derivative(x):
+	s = 1.0/(1 + e**(-x))
+	return s*(1-s)
+
 
 
 def softmax(x):
 	result = []
+	x = x - max(x)
 	for i in range(len(x)):
 		result.append(e**x[i])
 
@@ -145,11 +153,11 @@ def softmax(x):
 
 
 
-def forward(weights, bias, x_train):	# x_train has 512 numbers of 7306 length vector 
-	# inp is a 3D array of shape (n_samples, n_layers+1, n_nodes)
-	inp = [[[] for i in range(n_hidden_layer+1)] for j in range(len(x_train))]	# len(x_train) is batch_size(512)
+
+def forward(weights, bias, x_train):
+	inp = [[[] for i in range(n_hidden_layer+1)] for j in range(len(x_train))]
 	out = [[[] for i in range(n_hidden_layer+1)] for j in range(len(x_train))]
-	# print(inp)
+	
 	pred = []
 	for i in range(len(x_train)):
 		hidden_state = x_train[i]
@@ -157,60 +165,129 @@ def forward(weights, bias, x_train):	# x_train has 512 numbers of 7306 length ve
 		for j in range(n_hidden_layer+1):
 			out[i][j] = hidden_state
 			inp[i][j] = np.dot(hidden_state, weights[j]) + bias[j]
-			# print(hidden_state.shape)
-			# print(weights[j].shape)
-			# print("HELLO: ",np.dot(hidden_state, weights[j]).shape)
-			# print("")
-			z = np.dot(hidden_state, weights[j]) + bias[j]
-			hidden_state = sigmoid(np.dot(hidden_state, weights[j]) + bias[j])
-			# print(hidden_state)
-		# print(hidden_state)
-		pred.append(softmax(hidden_state))
-		# pred.append([0 if hidden_state[i]>thresh else 1 for i in range(len(hidden_state))]) #pred is a 2D array (n_sample, n_out_nodes)
-	print(pred)
+			if(j == n_hidden_layer):
+				hidden_state = softmax(np.dot(hidden_state, weights[j]) + bias[j])
+			else:
+				hidden_state = sigmoid(np.dot(hidden_state, weights[j]) + bias[j])
+		pred.append(hidden_state)
 	return np.array(pred), np.array(inp), np.array(out)
 
 
 
 
+def backward(weights, bias, inputs, outputs, pred, actual):
+	n_samples = len(inputs)
+	
+	delta_error = [[(-actual[i][j]/(pred[i][j] + np.finfo(float).eps)) + ((1 - actual[i][j])/(1 - pred[i][j] + np.finfo(float).eps)) for j in range(n_nodes_out)] for i in range(n_samples)]
+	delta_error = np.array(delta_error)
 
-def training(weights, bias, X_train, Y_train):
-	for i in range(n_epochs):
-		print("EPOCH ",i+1)
-		print("=========")
-		updated_weights, updated_bias = weights, bias
-		for j in range(len(X_train)):
-			print("Batch ",j+1)
-			pred, inp, out = forward(updated_weights, updated_bias, X_train[j])
-			w, b = backward(updated_weights, updated_bias, inp, out, pred, Y_train[j])
-			updated_weights = w
-			updated_bias = b
-		print("")
+	delta = [[] for i in range(n_samples)]
+	for i in range(n_samples):
+		inp = softmax(inputs[i][n_hidden_layer])
+		delta[i] = delta_error[i] * np.prod(inp)
+	delta = np.array(delta)
 
-		accuracy = get_accuracy(weights, bias, X_train, Y_train)
-		print("Accuracy: ",accuracy)
 
+	for i in range(n_hidden_layer+1):
+		nebla_weights = np.matmul(delta.T, np.array(list(zip(*outputs))[-1-i]))/n_samples
+		nebla_bias = np.array([np.sum(delta, axis=0)]).reshape(-1)/n_samples
+
+		if(i != n_hidden_layer):
+			b = np.dot(delta, weights[-1-i].T)
+
+			delta = [[] for i in range(n_samples)]
+			for j in range(n_samples):
+				a = []
+				for k in range(n_nodes_total[-1-i]):
+					inp = sigmoid_derivative(inputs[j][n_hidden_layer-1-i][k])
+					a.append(b[j][k] * inp)
+				delta[j] = a
+			delta = np.array(delta)
+
+
+		weights[-1-i] -= learning_rate*nebla_weights.T
+		bias[-1-i] -= learning_rate*nebla_bias.T	
+		
 	return weights, bias
 
 
 
 
-# x_train = []
-# y_train = []
-# x_test = []
-# y_test = []
-# preprocess(x_train, y_train, x_test, y_test)
+def get_train_accuracy(weights, bias, X_train, Y_train):
+	count = 0
+	N = 0
+	predicted = []
+	actual = []
+	for i in range(len(X_train)):
+		pred, inp, out = forward(weights, bias, X_train[i])
+		predicted = predicted + list(pred)
+		actual = actual + Y_train[i]
+		for j in range(len(pred)):
+			N += 1
+			a = np.argmax(pred[j])
+			b = np.argmax(Y_train[i][j])
+			if(a==b):
+				count += 1
 
-# np.save("x_train", x_train)
-# np.save("y_train", y_train)
-# np.save("x_test", x_test)
-# np.save("y_test", y_test)
+	error = [-actual[i][0]*np.log(predicted[i][0]) - actual[i][1]*np.log(1 - predicted[i][1]) for i in range(len(actual))]
+	error = np.sum(error)/len(actual)
+
+	return count/N, error
 
 
-x_train = np.load("x_train.npy")
-y_train = np.load("y_train.npy")
-x_test = np.load("x_test.npy")
-y_test = np.load("y_test.npy")
+
+
+def training(weights, bias, X_train, Y_train, X_test, Y_test):
+	accuracy_train, error_train, accuracy_test = [], [], []
+	for i in range(n_epochs):
+		for j in range(len(X_train)):
+			pred, inp, out = forward(weights, bias, X_train[j])
+			weights, bias = backward(weights, bias, inp, out, pred, Y_train[j])
+
+		acc_train, err = get_train_accuracy(weights, bias, X_train, Y_train)
+		accuracy_train.append(1-acc_train)
+		error_train.append(err)
+		acc_test = get_test_accuracy(weights, bias, X_test, Y_test)
+		accuracy_test.append(1-acc_test)
+		print("EPOCH ",i+1,"\tTrain Error: ",(1-acc_train),"\tLoss: ",err,"\tTest Error: ",(1-acc_test))
+
+	print("\nTrain Set accuracy: ",1-accuracy_train[-1])
+	return weights, bias, accuracy_train, error_train, accuracy_test
+
+
+
+def get_test_accuracy(weights, bias, X_test, Y_test):
+	count = 0
+	N = 0
+	pred, inp, out = forward(weights, bias, X_test)
+	for j in range(len(pred)):
+		N += 1
+		a = np.argmax(pred[j])
+		b = np.argmax(Y_test[j])
+		if(a==b):
+			count += 1
+
+	return count/N
+
+
+
+
+x_train = []
+y_train = []
+x_test = []
+y_test = []
+preprocess(x_train, y_train, x_test, y_test)
+
+np.save("x_train", x_train)
+np.save("y_train", y_train)
+np.save("x_test", x_test)
+np.save("y_test", y_test)
+
+
+# x_train = np.load("x_train.npy")
+# y_train = np.load("y_train.npy")
+# x_test = np.load("x_test.npy")
+# y_test = np.load("y_test.npy")
 
 
 X_train, Y_train = data_loader(x_train, y_train)
@@ -221,5 +298,31 @@ bias = [[] for i in range(n_hidden_layer+1)]
 weights = np.array(weight_initializer(weights, len(x_train[0]), n_nodes_out)) 
 bias = np.array(bias_initializer(bias, n_nodes_out))
 
-weights, bias = training(weights, bias, X_train, Y_train)
 
+np.seterr(all='ignore')
+weights, bias, accuracy_train, error_train, accuracy_test = training(weights, bias, X_train, Y_train, x_test, y_test)
+
+
+epoch = [i for i in range(n_epochs)]
+
+plt.figure()
+plt.plot(epoch, accuracy_train)
+plt.plot(epoch, accuracy_test, color='r')
+plt.title("Error vs Number of Epochs")
+plt.ylabel("Error")
+plt.xlabel("Number of Epochs")
+plt.legend(["Train", "Test"])
+# plt.savefig("Error vs Epoch Plot.png")
+
+plt.figure()
+plt.plot(epoch, error_train)
+plt.title("Loss Function vs Number of Epochs")
+plt.ylabel("Loss Function")
+plt.xlabel("Number of Epochs")
+# plt.savefig("Loss Function vs Epoch(training) Plot.png")
+
+plt.show()
+
+
+acc = get_test_accuracy(weights, bias, x_test, y_test)
+print("Test Set Accuracy: ", acc)
