@@ -19,3 +19,5 @@ Also perform Graph Clustering algorithm on the same dataset and compare with the
 
 
 ### ASSIGNMENT 4 (Neural Networks)
+Implement a simple Neural Network to classify messages a s SPAM or HAM. The specifications of the network are provided.  
+Variation of train error, test error, and loss fucntion with number of epochs has been provided.
