@@ -9,7 +9,7 @@ from math import e
 import matplotlib.pyplot as plt 
 
 
-batch_size = 512
+batch_size = 32
 n_hidden_layer = 1
 n_nodes = [100]
 n_nodes_total = [0] + n_nodes

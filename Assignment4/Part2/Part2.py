@@ -10,7 +10,7 @@ import sys
 import matplotlib.pyplot as plt
 
 
-batch_size = 512
+batch_size = 8
 n_hidden_layer = 2
 
 node1 = int(sys.argv[1])
@@ -19,7 +19,7 @@ node2 = int(sys.argv[2])
 n_nodes = [node1, node2]
 n_nodes_total = [0] + n_nodes
 learning_rate = 0.1
-n_epochs = 20
+n_epochs = 30
 n_nodes_out = 2
 
 
@@ -155,20 +155,24 @@ def softmax(x):
 
 
 def forward(weights, bias, x_train):
-	inp = [[[] for i in range(n_hidden_layer+1)] for j in range(len(x_train))]
-	out = [[[] for i in range(n_hidden_layer+1)] for j in range(len(x_train))]
+	inp = []
+	out = []
 	
 	pred = []
 	for i in range(len(x_train)):
 		hidden_state = x_train[i]
+		a, b = [], []
 
 		for j in range(n_hidden_layer+1):
-			out[i][j] = hidden_state
-			inp[i][j] = np.dot(hidden_state, weights[j]) + bias[j]
+			b.append(hidden_state)
+			a.append(np.dot(hidden_state, weights[j]) + bias[j])
 			if(j == n_hidden_layer):
 				hidden_state = softmax(np.dot(hidden_state, weights[j]) + bias[j])
 			else:
 				hidden_state = sigmoid(np.dot(hidden_state, weights[j]) + bias[j])
+
+		inp.append(a)
+		out.append(b)
 		pred.append(hidden_state)
 	return np.array(pred), np.array(inp), np.array(out)
 
@@ -178,30 +182,30 @@ def forward(weights, bias, x_train):
 def backward(weights, bias, inputs, outputs, pred, actual):
 	n_samples = len(inputs)
 	
-	delta_error = [[(-actual[i][j]/(pred[i][j] + np.finfo(float).eps)) + ((1 - actual[i][j])/(1 - pred[i][j] + np.finfo(float).eps)) for j in range(n_nodes_out)] for i in range(n_samples)]
+	delta_error = [[(-actual[i][j]/pred[i][j]) + ((1 - actual[i][j])/(1 - pred[i][j])) for j in range(n_nodes_out)] for i in range(n_samples)]
 	delta_error = np.array(delta_error)
 
-	delta = [[] for i in range(n_samples)]
+	delta = []
 	for i in range(n_samples):
 		inp = softmax(inputs[i][n_hidden_layer])
-		delta[i] = delta_error[i] * np.prod(inp)
+		delta.append(delta_error[i] * np.prod(inp))
 	delta = np.array(delta)
 
 
 	for i in range(n_hidden_layer+1):
-		nebla_weights = np.matmul(delta.T, np.array(list(zip(*outputs))[-1-i]))/n_samples
+		nebla_weights = np.dot(delta.T, np.array(list(zip(*outputs))[-1-i]))/n_samples
 		nebla_bias = np.array([np.sum(delta, axis=0)]).reshape(-1)/n_samples
 
 		if(i != n_hidden_layer):
 			b = np.dot(delta, weights[-1-i].T)
 
-			delta = [[] for i in range(n_samples)]
+			delta = []
 			for j in range(n_samples):
 				a = []
 				for k in range(n_nodes_total[-1-i]):
 					inp = sigmoid_derivative(inputs[j][n_hidden_layer-1-i][k])
 					a.append(b[j][k] * inp)
-				delta[j] = a
+				delta.append(a)
 			delta = np.array(delta)
 
 
@@ -312,16 +316,16 @@ plt.title("Error vs Number of Epochs")
 plt.ylabel("Error")
 plt.xlabel("Number of Epochs")
 plt.legend(["Train", "Test"])
-# plt.savefig("Error vs Epoch Plot.png")
+plt.savefig("Error vs Epoch Plot_1.png")
 
 plt.figure()
 plt.plot(epoch, error_train)
 plt.title("Loss Function vs Number of Epochs")
 plt.ylabel("Loss Function")
 plt.xlabel("Number of Epochs")
-# plt.savefig("Loss Function vs Epoch(training) Plot.png")
+plt.savefig("Loss Function vs Epoch(training) Plot_1.png")
 
-plt.show()
+# plt.show()
 
 
 acc = get_test_accuracy(weights, bias, x_test, y_test)
